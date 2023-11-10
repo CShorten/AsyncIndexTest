@@ -1,0 +1,25 @@
+---
+version: '3.4'
+services:
+  weaviate:
+    command:
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8080'
+    - --scheme
+    - http
+    image: sha256:9b15de4951a7b7d69acce6cc6a4d73a2ef716323a1125930bd6559bdd724b63e
+    ports:
+    - 8080:8080
+    restart: on-failure:0
+    volumes:
+    - ./backups:/tmp/backups
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      BACKUP_FILESYSTEM_PATH: '/tmp/backups'
+      CLUSTER_HOSTNAME: 'node1'
+      ASYNC_INDEXING: 'true'
+...
